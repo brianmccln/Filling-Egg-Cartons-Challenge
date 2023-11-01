@@ -33,7 +33,6 @@
 
         console.log('fillEggCartons:', fillEggCartons(100));
         
-
         // Bonus: improve parity
         function fillEggCartonsB1(numEggs) {
             const objArr = []; // fill w carton object and return at end
@@ -66,9 +65,9 @@
             objArr[objArr.length-1].price = objArr[objArr.length-1].carton.reduce((acc,e) => acc += e, 0);
             // re-sort the array of objects by price, in ascending order
             objArr.sort((a,b) => a.price > b.price ? 1 : -1);
-
             return objArr; // return the array of objects
         }
+
         console.log('fillEggCartonsB1:', fillEggCartonsB1(100));
 
 	</script>
