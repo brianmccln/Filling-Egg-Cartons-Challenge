@@ -70,6 +70,28 @@
 
         console.log('fillEggCartonsB1:', fillEggCartonsB1(100));
 
+        // basic algo approach:
+        const allEggsArr = [];
+        let numEggs = 100;
+        let numCartons = Math.floor(Math.floor(numEggs/12));
+        const objArr = [];
+
+        for(let i = 0; i < numEggs; i++) {
+            let r = Math.floor(Math.random() * 6) * 5 + 25;
+            allEggsArr.push(r);
+        }
+
+        for(let i = 0; i < numCartons; i++) {
+            const obj = {};
+            const dozenEggs = allEggsArr.splice(0,12);
+            let price = dozenEggs.reduce((acc,e) => acc += e, 0)
+            objArr.push({carton: dozenEggs, price: price});
+        }
+
+        objArr.sort((a,b) => a.price > b.price ? 1 : -1);
+
+        console.log(objArr);
+
 	</script>
 
 </body>
