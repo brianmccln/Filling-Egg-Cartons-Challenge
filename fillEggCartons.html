@@ -50,7 +50,7 @@
                 objArr.push({ carton: dozenEggs, price: cartonPrice });
             }
 
-            // BONUS:
+            // BONUS: Improve Price Parity by narrowing min-max price difference
             // sort the array of objects by price property, in ascending order
             objArr.sort((a,b) => a.price > b.price ? 1 : -1);
             // cheapest array is at index 0; get the index of the first 25:
@@ -69,7 +69,6 @@
 
             return objArr; // return the array of objects
         }
-
         console.log('fillEggCartonsB1:', fillEggCartonsB1(100));
 
 	</script>
