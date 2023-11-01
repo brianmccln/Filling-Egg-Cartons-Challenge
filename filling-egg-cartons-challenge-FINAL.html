@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filling Egg Cartons Challenge</title>
+
+    <style>
+
+        body {
+            background-color: #333;
+            margin: 30px;
+            font-size: 20px;
+            font-family: sans-serif;
+        }
+
+        .container {
+            background-color: #eee;
+            width: 950px;
+            font-size: 1.25em;
+            border: 2px solid #999;
+            padding: 30px;
+            color: #333;
+            margin: 0 auto;
+            min-height: 400px;
+        }
+
+        strong {
+            font-family: monospace;
+        }
+
+        h1, h2, h3, h4, p {
+            margin: 5px;
+            padding: 5px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>JS ALGO CHALLENGE:</h1>
+        <h1>Filling Egg Cartons</h1>
+
+        <p>Write a JavaScript program that fills egg cartons from any number of eggs.</p>
+
+        <ul>
+            <li>Write a function called <strong>fillEggCartons(numEggs)</strong></li>
+            <li><strong>numEggs</strong>, an integer, is the total number of eggs.</li>
+            <li>The function starts by assigning a price, in cents, to each egg.</li>
+            <li>There are 6 possible prices: <strong>25, 30, 35, 40, 45, 50</strong></li>
+            <li>Prices should be as equally distributed as possible, </li>
+            <li>so, if there are 54 eggs, there should be nine eggs of each price.</li>
+            <li>The function then proceeds to make cartons of a dozen eggs each.</li>
+            <li>So, if there are 54 eggs passed in, the function makes four cartons.</li>
+            <li>For 54 eggs, there would be 6 leftover eggs, which you may ignore.</li>
+            <li>Each full carton should contain <em>exactly</em> two 25-cent eggs</li> 
+            <li>Each full carton should contain <em>exactly</em> two 50-cent eggs.</li>
+            <li>The carton's other eight egg prices are be assigned at <strong>random</strong>.</li>
+            <li>Once all the cartons are full, calculate the price of each carton.</li>
+            <li>Carton prices will differ, due to the eight random eggs per carton.</li>
+            <li>Each carton should be an object, having the following two <strong>keys</strong>:</li>
+            <li><strong>"carton":</strong> the value of which is a 12-item array of prices: <br>
+                <strong>[50, 50, 25, 25, 40, 35, 45, 50, 30, 35, 45, 25]</strong>
+            <li><strong>"price":</strong> the sum of the carton array: Example: <strong>455</strong></li>
+            <li>So, the whole object would be:<br><strong>
+                { eggs: [50, 50, 25, 25, 40, 35, 45, 50, 30, 35, 45, 25], price: 455 }</strong></li>
+            <li>The function should return an array of these carton objects.</li>
+            <li>So if 54 eggs are passed in, the function returns an array of four objects.</li>
+            <br>
+            <li><strong>BONUS 1: Improve Price Parity:</strong></li>
+            <li>Reduce the difference between the min and max priced cartons:</li>
+            <li>Swap a 50-cent egg from the most expensive carton for a 25-cent egg from the cheapest carton.</li>
+            <li>After the swap, don't forget to recalculate the prices of the two affected cartons.</li></strong></li>
+            <br>
+            <li><strong>BONUS 2: Sort Array by Price:</strong></li>
+            <li>Return the array of cartons, <strong></strong>sorted by price, ascending</strong> order.</li>
+            <li>Provide the option of sorting prices in <strong>descending</strong> order.</li>
+            <li>A 2nd <strong>parameter</strong> will be needed for specifying ascending or descending sort.</li>
+            <li>The refactored function might start like this: 
+                <br><strong>fillEggCartons(numEggs, sortByPrice="asc")</strong></li>
+        </ul>
+      
+    </div>
+
+    <script>
+
+        function fillEggCartons(numEggs) { // does not incl bonus parts
+            const objArr = []; // an array of objects to store the final result 
+            let numCartons = Math.floor(numEggs / 12); // calc number of 12-egg cartons to be made
+            const randPrices = [30,35,40,45]; // an array of prices to be assigned at random
+            for(let i = 0; i < numCartons; i++) { // run loop once for each carton to be made
+                const cartonArr = [25,25,50,50]; // an array containing the non-random prices 
+                for(let j = 0; j < 8; j++) { // inner loop runs 8x, once for each random egg price
+                    cartonArr.push(randPrices[Math.floor(Math.random() * 4)]); // push rand price into cartonArr
+                }
+                // make obj w carton & price properties; push obj into objArr; use reduce() to calc tot price
+                objArr.push({ carton: cartonArr, price: cartonArr.reduce((acc,e) => acc += e, 0) }); 
+            }
+            return objArr; // return the result, an array of objects
+        }
+
+        /*
+            let cartons = [];
+            // add 2 30-cent and 2 50-cent eggs into each of the 8 cartons
+            // 4 eggs each for 8 total cartons, so use nested loop 4x8 times
+            // the result is that the cartons array will have 8 objects,
+            // each an array of the four required eggs: [30,30,50,50]
+            for(let i = 0; i < 8; i++) {
+                let carton = [];
+                let cartonPrice = 0;
+                for(let i = 0; i < 2; i++) {
+                    let cheapEgg = basket.shift();
+                    carton.push(cheapEgg);
+                }
+                for(let i = 0; i < 2; i++) {
+                    let pricyEgg = basket.pop();
+                    carton.push(pricyEgg);
+                }
+                cartons.push(carton);
+            }
+            // console.log(basket);
+
+            // there are only 4 30-cent and 4 50-cent eggs left in the basket
+            // remove the 30-cent eggs, which are at the beginning of the baskets
+            // array, since they cannot be used
+            let leftovers = basket.splice(0,4);
+            // console.log(basket);
+            // console.log(leftovers);
+
+            // the rest of the eggs will be chosen at random, so randomize the basket
+            basket.sort((a,b) => Math.random() - 0.5);
+
+            // loop through the remaining eggs in the basket
+            // since the eggs are already randomized, grab them 8 at a time
+            for(let i = 0; i < 8; i++) {
+                let eightEggs = basket.splice(0,8);
+                cartons[i].push(...eightEggs);
+                let cartonPrice = cartons[i].reduce((s,e) => s + e, 0);
+                let cartonObj = {eggs: cartons[i], price: cartonPrice};
+                cartons[i] = cartonObj;
+                // console.log(cartons[i]);
+            }
+
+            // console.log(cartons);
+
+            // sort the cartons array by price key in descending order
+            cartons.sort((a,b) => {
+                return a.price - b.price;
+            }).reverse();
+
+            // swap a 50-cent egg from the most expensive carton
+            // with a 30-cent egg from the cheapest carton
+            // the most expensive carton is cartons[0]
+            // the cheapest carton is cartons[7]
+            // the cheapest eggs are at indices 0 and 1
+            // the priciest eggs are at indices 2 and 3
+            cartons[0].eggs[2] = 30; // [30,30,30,50.. etc.]
+            cartons[7].eggs[1] = 50; // [30,50,50,50.. etc.]
+
+            // recalculate the prices
+            let newPriceCarton0 = cartons[0].eggs.reduce((s, e) => s + e, 0);
+            // console.log('newPriceCarton0', newPriceCarton0);
+            cartons[0].price = newPriceCarton0;
+            let newPriceCarton7 = cartons[7].eggs.reduce((s, e) => s + e, 0);
+            // console.log('newPriceCarton7', newPriceCarton7);
+            cartons[7].price = newPriceCarton7;
+
+            // resort the cartons array by price key in descending order
+            cartons.sort((a,b) => {
+                return a.price - b.price;
+            }).reverse();
+            // console.log(cartons);
+
+            // add the leftover eggs to the cartons array, for
+            // a total of 9 items in the cartons array:
+            cartons.push({eggs:leftovers, price:120})
+
+            console.log(cartons);
+
+       }
+*/
+       console.log(fillEggCartons(36));
+       console.log(fillEggCartons(52));
+       console.log(fillEggCartons(152));
+
+    </script>
+    
+</body>
+</html>
