@@ -61,7 +61,6 @@
             // change a 50 from most expensive carton at last index to 24 
             let indexOf50 = objArr[objArr.length-1].carton.indexOf(50);
             objArr[objArr.length-1].carton[indexOf50] = 24;
-            // update the price of the changed array:
             objArr[objArr.length-1].price = objArr[objArr.length-1].carton.reduce((acc,e) => acc += e, 0);
             // re-sort the array of objects by price, in ascending order
             objArr.sort((a,b) => a.price > b.price ? 1 : -1);
